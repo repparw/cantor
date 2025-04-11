@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
     paths:
       - 'keyboards/cantor/keymaps/repparw/**'
-      - '.github/workflows/draw_qmk_layout.yaml'
+      - '.github/workflows/draw_qmk_layout.yml'
   workflow_dispatch:
 
 jobs:
