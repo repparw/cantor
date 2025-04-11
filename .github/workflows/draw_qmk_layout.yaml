@@ -58,9 +58,6 @@ jobs:
       - name: Convert C to JSON and Parse
         if: steps.check_keymap.outputs.files_exists == 'true'
         run: |
-<<<<<<< HEAD
-          keymap parse -q "${{ steps.paths.outputs.keymap_file }}" > "${{ steps.paths.outputs.output_yaml }}"
-=======
           # Tell QMK CLI where the user's keymap overlay is relative to qmk_firmware
           # `pwd` gives the root of the checked-out user repo (repparw/cantor)
           qmk config user.overlay_dir=$(pwd)
@@ -73,7 +70,6 @@ jobs:
           qmk c2json -kb ${{ steps.paths.outputs.qmk_keyboard_name }} -km ${{ steps.paths.outputs.qmk_keymap_name }} ${{ steps.paths.outputs.keymap_c_file }} | \
           keymap parse -q - > "${{ steps.paths.outputs.output_yaml }}"
           # Note: The example had "-c 10" in parse. Add if needed: keymap parse -c 10 -q - > ...
->>>>>>> d6d4eb0 (qmk_draw: added qmk cli, c2json)
 
       - name: Check for Parsed YAML
         id: check_yaml
