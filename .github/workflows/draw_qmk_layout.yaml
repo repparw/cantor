@@ -35,7 +35,7 @@ jobs:
         run: pip install qmk
 
       - name: Setup QMK Environment
-        run: qmk setup --yes --home /github/qmk_firmware
+        run: qmk setup --yes
 
       - name: Define Paths and Names
         id: paths
