@@ -2,20 +2,28 @@ name: Draw QMK Keymap Layout
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main", "master" ] # Adjust branch name(s) if necessary
     paths:
+      # Trigger only if files related to the keymap change in *this* repo
       - 'keyboards/cantor/keymaps/repparw/**'
-      - '.github/workflows/draw_qmk_layout.yml'
+      # Or if this workflow file itself changes
+      - '.github/workflows/generate_layout.yml'
+  # Allow manual triggering from the Actions tab
   workflow_dispatch:
 
+# --- Define Jobs ---
 jobs:
+  # Define a job ID (can be anything descriptive)
   call_draw_workflow:
-    name: Call Reusable Keymap Drawer
-    runs-on: ubuntu-latest
+    name: Call Reusable Keymap Drawer # Name displayed in the Actions UI for this job
+    runs-on: ubuntu-latest # Specify a runner for this job
 
     # --- Call the Reusable Workflow ---
+    # Use the 'uses' keyword within the job to point to your reusable workflow
     uses: repparw/keymap-drawer/.github/workflows/draw-qmk.yml@add-qmk-c-workflow # Pointer to your fork/branch
 
+    # --- Provide Inputs to the Reusable Workflow ---
+    # Use the 'with' keyword to pass inputs defined in the reusable workflow's 'on.workflow_call.inputs'
     with:
       qmk_keymap_c_path: 'keyboards/cantor/keymaps/repparw/keymap.c'
       qmk_keyboard: 'cantor'
