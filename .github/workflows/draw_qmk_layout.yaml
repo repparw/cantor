@@ -54,7 +54,7 @@ jobs:
       - name: Parse QMK Keymap C file
         if: steps.check_keymap.outputs.files_exists == 'true'
         run: |
-          keymap parse "${{ steps.paths.outputs.keymap_file }}" > "${{ steps.paths.outputs.output_yaml }}"
+          keymap parse -q "${{ steps.paths.outputs.keymap_file }}" > "${{ steps.paths.outputs.output_yaml }}"
 
       - name: Check for Parsed YAML
         id: check_yaml
