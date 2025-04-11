@@ -1,0 +1,37 @@
+name: Build QMK firmware
+
+on:
+  push:
+    branches: [ "master" ]
+
+    paths:
+      # Trigger if keymap changes
+      - 'keyboards/cantor/keymaps/repparw/**' 
+
+      # Trigger if the QMK build target list changes
+      - 'qmk.json'
+
+      # Trigger if this workflow file itself changes
+      - '.github/workflows/build_binaries.yaml'
+
+  # Manual triggering
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: 'QMK Userspace Build'
+    # Uses the standard QMK reusable build workflow
+    uses: qmk/.github/.github/workflows/qmk_userspace_build.yml@main
+    with:
+      qmk_repo: qmk/qmk_firmware 
+      qmk_ref: master
+
+  publish:
+    name: 'QMK Userspace Publish'
+    # Uses the standard QMK reusable publish workflow
+    uses: qmk/.github/.github/workflows/qmk_userspace_publish.yml@main
+    # This job depends on the 'build' job completing successfully. 
+    needs: build
