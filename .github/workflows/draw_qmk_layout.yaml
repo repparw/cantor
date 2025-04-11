@@ -10,6 +10,10 @@ on:
 
 jobs:
   call_draw_workflow:
+    name: Call Reusable Keymap Drawer
+    runs-on: ubuntu-latest
+
+    # --- Call the Reusable Workflow ---
     uses: repparw/keymap-drawer/.github/workflows/draw-qmk.yml@add-qmk-c-workflow # Pointer to your fork/branch
     with:
       qmk_keymap_c_path: 'keyboards/cantor/keymaps/repparw/keymap.c'
