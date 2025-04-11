@@ -2,11 +2,11 @@
 
 This repository contains my personal [QMK](https://qmk.fm/) keymap configuration for the [Cantor](https://github.com/diepala/cantor) keyboard, which is a split 3x6 keyboard with 3 thumb keys per side.
 
-It is set up as a [QMK External Userspace](https://docs.qmk.fm/newbs_external_userspace) and uses GitHub Actions to automatically build the firmware when relevant code changes are pushed.
+It is set up as a [QMK External Userspace](https://docs.qmk.fm/newbs_external_userspace)
 
 ## Layout Overview
 
-This is the general layout structure. For the exact keycodes and definitions, please refer to the `keyboards/cantor/keymaps/repparw/keymap.c` file.
+This is the general layout structure. For the keycodes and definitions, see the `keyboards/cantor/keymaps/repparw/keymap.c` file.
 
 ![Cantor Layout](docs/layout.png)
 
@@ -36,11 +36,9 @@ This keymap utilizes multiple layers for functionality:
 
 ## Building the Firmware
 
-### GitHub Actions (Recommended)
+### Latest Download (Recommended)
 
-This repository is configured with GitHub Actions. Firmware is automatically built whenever changes are pushed to relevant files (keymap code, `qmk.json`, workflow file).
-
-You can download the latest compiled firmware (`.uf2` or `.hex` file) directly from the **[Releases page](https://github.com/repparw/cantor/releases)**.
+You can download the latest compiled firmware (`.bin` file) directly from the **[Releases page](https://github.com/repparw/cantor/releases)**.
 
 ### Local Build
 
