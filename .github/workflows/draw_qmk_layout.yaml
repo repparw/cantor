@@ -8,6 +8,9 @@ on:
       - '.github/workflows/draw_qmk_layout.yaml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   call_draw_workflow:
     uses: repparw/keymap-drawer/.github/workflows/draw-qmk.yml@add-qmk-c-workflow # Pointer to your fork/branch
