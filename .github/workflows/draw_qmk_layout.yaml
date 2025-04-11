@@ -28,14 +28,27 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Set QMK Home Path
+        id: qmk_home
+        run: echo "path=$HOME/qmk_firmware" >> $GITHUB_OUTPUT
+
+      - name: Cache QMK Firmware
+        id: qmk_cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.qmk_home.outputs.path }} # Cache the target directory
+          key: qmk-firmware-cache-${{ runner.os }}
+
       - name: Install keymap-drawer
         run: pipx install keymap-drawer
 
       - name: Install QMK CLI
         run: pip install qmk
 
-      - name: Setup QMK Environment
-        run: qmk setup --yes
+      # Setup QMK environment ONLY if cache was not restored
+      - name: Setup QMK Environment (if cache missed)
+        if: steps.qmk_cache.outputs.cache-hit != 'true'
+        run: qmk setup --yes --home "${{ steps.qmk_home.outputs.path }}"
 
       - name: Define Paths and Names
         id: paths
