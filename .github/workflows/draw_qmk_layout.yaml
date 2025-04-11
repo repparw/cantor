@@ -1,0 +1,90 @@
+name: Draw QMK Keymap Layout
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'keyboards/cantor/keymaps/repparw/keymap.c'
+      - 'keyboards/cantor/keymaps/repparw/config.h'
+      - 'keyboards/cantor/keymaps/repparw/rules.mk'
+      # Trigger if this workflow itself changes
+      - '.github/workflows/draw_qmk_layout.yaml'
+
+  # Manual triggering
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  draw_layout:
+    name: Draw Keymap SVG
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install keymap-drawer
+        run: pipx install keymap-drawer
+
+      - name: Define Paths
+        id: paths
+        run: |
+          echo "keymap_file=keyboards/cantor/keymaps/repparw/keymap.c" >> $GITHUB_OUTPUT
+          echo "output_yaml=docs/layout_parsed.yaml" >> $GITHUB_OUTPUT
+          echo "output_svg=docs/layout.svg" >> $GITHUB_OUTPUT
+          echo "qmk_keyboard_name=cantor" >> $GITHUB_OUTPUT
+
+      - name: Create Output Directory
+        run: mkdir -p docs
+
+      - name: Check for Keymap File
+        id: check_keymap
+        uses: andstor/file-existence-action@v3
+        with:
+          files: "${{ steps.paths.outputs.keymap_file }}"
+
+      - name: Parse QMK Keymap C file
+        if: steps.check_keymap.outputs.files_exists == 'true'
+        run: |
+          keymap parse "${{ steps.paths.outputs.keymap_file }}" > "${{ steps.paths.outputs.output_yaml }}"
+
+      - name: Check for Parsed YAML
+        id: check_yaml
+        uses: andstor/file-existence-action@v3
+        if: steps.check_keymap.outputs.files_exists == 'true'
+        with:
+          files: "${{ steps.paths.outputs.output_yaml }}"
+
+      - name: Draw SVG from YAML using QMK layout
+        if: steps.check_yaml.outputs.files_exists == 'true'
+        run: |
+          keymap draw "${{ steps.paths.outputs.output_yaml }}" \
+            --qmk-keyboard "${{ steps.paths.outputs.qmk_keyboard_name }}" \
+            > "${{ steps.paths.outputs.output_svg }}"
+
+      - name: Check for Generated SVG
+        id: check_svg
+        uses: andstor/file-existence-action@v3
+        if: steps.check_yaml.outputs.files_exists == 'true'
+        with:
+          files: "${{ steps.paths.outputs.output_svg }}"
+
+      - name: Commit updated SVG and YAML
+        if: steps.check_svg.outputs.files_exists == 'true' # Only commit if SVG exists
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: Autogenerate keymap layout diagram"
+          # Specify the files to commit
+          file_pattern: "${{ steps.paths.outputs.output_svg }} ${{ steps.paths.outputs.output_yaml }}"
+          # Optional: Amend the previous commit instead of making a new one
+          # commit_options: '--amend --no-edit'
+          # push_options: '--force-with-lease' # Needed if amending
+          # skip_fetch: true # Recommended if amending
