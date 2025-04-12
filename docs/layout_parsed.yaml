@@ -25,7 +25,7 @@ layers:
   - {t: L, h: ALT}
   - {t: ;, h: GUI}
   - ''''
-  - {t: LSFT, h: sticky}
+  - CW TOGG
   - Z
   - X
   - C
