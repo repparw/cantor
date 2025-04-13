@@ -7,6 +7,7 @@
 #    include "keymap.h"
 #endif
 
+
 // Home row mods aliases
 #define GUI_A GUI_T(KC_A)
 #define ALT_S ALT_T(KC_S)
@@ -17,8 +18,6 @@
 #define ALT_L ALT_T(KC_L)
 #define GUI_SC GUI_T(KC_SCLN)
 
-#define OSM_SFT OSM(MOD_LSFT)
-#define OSM_GUI OSM(MOD_LGUI)
 #define OSM_RALT OSM(MOD_RALT) // TODO layer+alt?
 #define NL_SPC LT(_NL, KC_SPC)
 #define NL_BSPC LT(_NL, KC_BSPC)
