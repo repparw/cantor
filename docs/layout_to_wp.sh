@@ -7,7 +7,8 @@
 # Description:
 #   Converts an input image (default: layout.png) into a 16:9 aspect ratio
 #   wallpaper (default: layout_wp.png).
-#   It trims any uniform border, centers the content, and expands the canvas
+#   Layout.png should be a screenshot from KLE, with white borders trimmed
+#   It centers the content, and expands the canvas
 #   using a specified background color.
 #
 # Requirements:
@@ -52,7 +53,6 @@ echo "  Background:      $BACKGROUND_COLOR"
 
 # Execute ImageMagick command
 magick "$INPUT_FILE" \
-    -trim \
     -background "$BACKGROUND_COLOR" \
     -gravity center \
     -extent '%[fx:w>h*16/9?w:h*16/9]x%[fx:h>w*9/16?h:w*9/16]' \
