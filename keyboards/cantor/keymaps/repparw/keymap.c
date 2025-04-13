@@ -24,6 +24,8 @@
 #define NL_BSPC LT(_NL, KC_BSPC)
 #define FL_DEL LT(_FL, KC_DEL)
 
+#define I_NTIL ALGR(KC_N)
+
 enum layer_names {
     _BL, // base
     _NL, // num
@@ -40,12 +42,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NL] = LAYOUT_split_3x6_3(
         _______,  XXXXXXX,  KC_7,     KC_8,     KC_9,     KC_COMM,      XXXXXXX,  XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  KC_BSPC,
-        _______,  XXXXXXX,  KC_4,     KC_5,     KC_6,     KC_DOT,       KC_PMNS,  KC_PEQL,  KC_LBRC,  KC_RBRC,  XXXXXXX,  KC_BSLS,
+        _______,  XXXXXXX,  KC_4,     KC_5,     KC_6,     KC_DOT,       KC_PMNS,  KC_PEQL,  KC_LBRC,  KC_RBRC,  I_NTIL,   KC_BSLS,
         _______,  XXXXXXX,  KC_1,     KC_2,     KC_3,     KC_0,         KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  XXXXXXX,  _______,
                             KC_GRAVE, _______,  _______,                 _______,  _______,  _______
     ),
     [_FL] = LAYOUT_split_3x6_3(
-        XXXXXXX,  XXXXXXX,  KC_F7,    KC_F8,    KC_F9,    KC_F12,       KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_PSCR,  XXXXXXX,
+        QK_BOOT,  XXXXXXX,  KC_F7,    KC_F8,    KC_F9,    KC_F12,       KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_PSCR,  XXXXXXX,
         _______,  XXXXXXX,  KC_F4,    KC_F5,    KC_F6,    KC_F11,       KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XXXXXXX,  XXXXXXX,
         _______,  XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F10,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TG(_GL),
                             _______, _______,  _______,                  _______,  _______,  _______
