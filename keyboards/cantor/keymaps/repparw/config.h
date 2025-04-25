@@ -6,3 +6,5 @@
 #define TAPPING_TERM 180 /* Time (in ms) before a tap is considered a hold. QUICK_TAP_TERM defaults to this value too*/
 //#define PERMISSIVE_HOLD /* Allow nested taps */
 //#define CHORDAL_HOLD
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD

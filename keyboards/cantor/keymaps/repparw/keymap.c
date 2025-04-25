@@ -13,10 +13,10 @@
 #define ALT_S ALT_T(KC_S)
 #define CTL_D CTL_T(KC_D)
 #define SFT_F SFT_T(KC_F)
-#define SFT_J SFT_T(KC_J)
-#define CTL_K CTL_T(KC_K)
+#define SFT_J RSFT_T(KC_J)
+#define CTL_K RCTL_T(KC_K)
 #define ALT_L ALT_T(KC_L)
-#define GUI_SC GUI_T(KC_SCLN)
+#define GUI_SC RGUI_T(KC_SCLN)
 
 #define OSM_RALT OSM(MOD_RALT) // TODO layer+alt?
 #define NL_SPC LT(_NL, KC_SPC)
